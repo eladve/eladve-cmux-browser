@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "eladve-claude-setup",
+  "owner": {
+    "name": "Elad Verbin"
+  },
+  "description": "Elad's Claude Code setup — cmux-first browsing/research, plus personal extras.",
+  "plugins": [
+    {
+      "name": "eladve-cmux-browser",
+      "source": "./plugins/eladve-cmux-browser",
+      "description": "Makes the cmux browser Claude's default tool for interactive web work and multi-item research, with surface hygiene, fetch/WebSearch discipline, and parallel-research patterns.",
+      "version": "0.1.0",
+      "author": { "name": "Elad Verbin" },
+      "category": "productivity",
+      "keywords": ["cmux", "browser", "research", "web", "parallel"]
+    },
+    {
+      "name": "eladve-theme",
+      "source": "./plugins/eladve-theme",
+      "description": "Cmux Dark — a dark Claude Code theme with warm-orange user turns so your messages pop. Adds 'Cmux Dark' to /theme.",
+      "version": "0.1.0",
+      "author": { "name": "Elad Verbin" },
+      "category": "theme",
+      "keywords": ["theme", "dark"]
+    }
+  ]
+}

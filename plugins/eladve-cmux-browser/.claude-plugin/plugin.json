@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "eladve-cmux-browser",
+  "displayName": "Elad's cmux Browser",
+  "version": "0.1.0",
+  "description": "Makes the cmux browser Claude's default for interactive web work and multi-item research — surface hygiene, fetch/WebSearch discipline, parallel-research patterns, and a one-time setup walkthrough.",
+  "author": { "name": "Elad Verbin" },
+  "homepage": "https://github.com/eladve/eladve-cmux-browser",
+  "repository": "https://github.com/eladve/eladve-cmux-browser",
+  "license": "0BSD",
+  "keywords": ["cmux", "browser", "research", "web", "parallel", "linkedin"],
+  "hooks": "./hooks/hooks.json"
+}

@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__fetch__.*|WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/browser-policy.py\"",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
+  }
+}

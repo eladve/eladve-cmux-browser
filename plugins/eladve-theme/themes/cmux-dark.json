@@ -1,0 +1,9 @@
+{
+  "name": "Cmux Dark (user turns pop)",
+  "base": "dark",
+  "overrides": {
+    "background": "#000000",
+    "userMessageBackground": "#6e3b00",
+    "userMessageBackgroundHover": "#8f4e0a"
+  }
+}
