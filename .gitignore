@@ -9,6 +9,3 @@ Thumbs.db
 
 # Local-only plugin idea backlog — never published
 IDEAS.md
-
-# CI workflow kept local (deferred — pushing it needs the gh "workflow" token scope)
-.github/
