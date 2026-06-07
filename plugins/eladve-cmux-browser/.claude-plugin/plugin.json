@@ -1,6 +1,6 @@
 {
   "name": "eladve-cmux-browser",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Makes the cmux browser Claude's default for interactive web work and multi-item research — surface hygiene, fetch/WebSearch discipline, parallel-research patterns, and a one-time setup walkthrough.",
   "author": { "name": "Elad Verbin" },
   "homepage": "https://github.com/eladve/eladve-cmux-browser",
