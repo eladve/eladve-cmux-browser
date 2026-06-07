@@ -1,8 +1,6 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "eladve-theme",
-  "displayName": "Cmux Dark theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cmux Dark — a dark Claude Code theme with a black background and warm-orange user turns so your messages pop. Adds 'Cmux Dark' to /theme.",
   "author": { "name": "Elad Verbin" },
   "homepage": "https://github.com/eladve/eladve-cmux-browser",
