@@ -9,7 +9,7 @@
       "name": "eladve-cmux-browser",
       "source": "./plugins/eladve-cmux-browser",
       "description": "Makes the cmux browser Claude's default tool for interactive web work and multi-item research, with surface hygiene, fetch/WebSearch discipline, and parallel-research patterns.",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "author": { "name": "Elad Verbin" },
       "category": "productivity",
       "keywords": ["cmux", "browser", "research", "web", "parallel"]

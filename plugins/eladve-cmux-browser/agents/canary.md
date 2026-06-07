@@ -32,20 +32,20 @@ FAIL canary <i>: agent-invocation bypass detected. Main agent invoked via genera
 ## Inputs from main agent
 
 The invocation prompt must include:
-- **canary_index** (integer 1..N)
+- **canary_index** (integer 1..N; optional — defaults to 1 if omitted)
 - **surface_id** (e.g., `surface:34`)
 - **sum** (e.g., `"1+1"`, `"2+2"` — a simple arithmetic expression Google can answer)
 
-If any input is missing, return:
+If `surface_id` or `sum` is missing, return:
 ```
-FAIL canary <i?>: missing input. Required: canary_index, surface_id, sum.
+FAIL canary <i?>: missing input. Required: surface_id, sum (canary_index optional).
 ```
 
 ---
 
 ## Procedure — MAXIMUM 6 Bash calls
 
-1. **(Bash call 1) Sleep stagger:** `sleep $(( canary_index * 5 ))` — stagger so N canaries don't hit Google simultaneously (synchronized hits trigger Google's "verify you're human" wall). Index 1 → 5s, index 5 → 25s.
+1. **(Bash call 1) Sleep stagger:** `sleep $(( ${canary_index:-1} * 5 ))` — if `canary_index` wasn't provided, treat it as 1. Stagger so N canaries don't hit Google simultaneously (synchronized hits trigger Google's "verify you're human" wall). Index 1 → 5s, index 5 → 25s.
 2. **(Bash call 2) Verify surface alive:** `cmux browser --surface <surface_id> get url`
    - If error (e.g., `not_found`), FAIL immediately: `FAIL canary <i>: assigned surface <surface_id> not alive. Error: <stderr>. Main agent must re-allocate a surface and re-invoke.`
 3. **(Bash call 3) Navigate:** `cmux browser --surface <surface_id> goto "https://www.google.com/search?q=<URL-encoded sum>"`

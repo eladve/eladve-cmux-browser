@@ -73,7 +73,7 @@ fetch is fast and tempting, so it gets over-used. The rule:
 
 - **Open research/browser surfaces in a DEDICATED PANE** (`cmux new-pane --type browser` — side-by-side with the terminal, same workspace; a separate workspace also works), **never as tabs in the working-terminal's pane.** A separate pane is preferred (you see terminal + browser together). cmux nesting: *window* ⊃ *workspace* (the tabs you scroll) ⊃ *pane* (splits) ⊃ *surface* (tabs in a pane).
 - **NEVER `cmux close-surface` on anything sharing the focused terminal's pane.** Closing tabs in the terminal's pane makes the terminal's tab strip drop tabs and *look* closed/lost (alarming; erodes trust).
-- **Clean up by closing browser tabs one at a time with `cmux close-surface`.** NEVER `close-workspace` / `close-window` as "cleanup" — that destroys the whole workspace, including any terminal in it (this has killed a live session before).
+- **Clean up by closing browser tabs one at a time with `cmux close-surface --surface <id>`** — ALWAYS pass `--surface`; a bare/positional `cmux close-surface` closes the CURRENT pane (the terminal). NEVER `close-workspace` / `close-window` as "cleanup" — that destroys the whole workspace, including any terminal in it (this has killed a live session before).
 - **Subagents that open surfaces** don't clean up after themselves — the main agent must close their surfaces.
 - **Parallel surfaces:** open ONE browser pane, add the rest as TABS (`cmux new-surface --type browser --pane <pane>`) — single-pane footprint; tabs navigate independently by `surface_id`.
 

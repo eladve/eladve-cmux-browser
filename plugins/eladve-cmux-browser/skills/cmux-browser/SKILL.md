@@ -73,7 +73,8 @@ This is the spine for anything fidelity-critical, and the *only* path for login-
 - **Open research surfaces in a DEDICATED browser pane in the current workspace** (`cmux new-pane --type browser` once; add more tabs with `cmux new-surface --type browser --pane <pane>`). cmux nesting: *window* ⊃ *workspace* ⊃ *pane* ⊃ *surface* (tab).
 - **First pane = heads-up:** the first time you open a browser pane in a session, give the user a one-line heads-up ("opening a cmux browser pane beside your terminal") so the split layout doesn't surprise them.
 - **Never put browser surfaces as tabs in the working terminal's pane**, and **never `cmux close-surface` on anything sharing the focused terminal's pane** — it makes the terminal look closed/lost.
-- **Clean up by closing browser tabs one at a time with `cmux close-surface`.** NEVER `close-workspace` / `close-window` as "cleanup" — that destroys the whole workspace, including any terminal in it.
+- **Clean up by closing browser tabs one at a time with `cmux close-surface --surface <id>`** — ALWAYS pass `--surface`. **A bare or positional `cmux close-surface` (no flag) closes the CURRENT pane — the terminal Claude runs in (it has killed live sessions).** NEVER `close-workspace` / `close-window` as "cleanup" — that destroys the whole workspace, including any terminal in it.
+- **Surfaces are ephemeral** — don't reuse a `surface:N` across a user-interaction gap (e.g. after asking the user to log in); it may have been closed or recycled. Re-open fresh surfaces afterward.
 - **Subagents don't clean up their own surfaces** — the main agent closes them.
 - **Parallel surfaces:** one browser pane, the rest as tabs (`new-surface --type browser --pane <pane>`); each tab navigates independently by `surface_id` regardless of which is visible.
 
