@@ -1,6 +1,6 @@
 # eladve-cmux-browser
 
-This repo is a Claude Code **plugin marketplace** (`eladve-claude-setup`) holding Elad's personal Claude Code setup. It currently ships two plugins.
+This repo is a Claude Code **plugin marketplace** (`eladve-claude-setup`) holding Elad's personal Claude Code setup. It ships the plugins below.
 
 ## Plugins
 
@@ -8,8 +8,8 @@ This repo is a Claude Code **plugin marketplace** (`eladve-claude-setup`) holdin
 
 Makes **the cmux browser Claude's default tool** for interactive web work and multi-item research — instead of letting it fall back to `fetch` or WebSearch snippets, which are weaker for anything JS-heavy, login-walled, or about real people and companies. Bundles:
 
-- **`cmux-browser` skill** — the operating manual: the cmux default loop, surface hygiene, fetch/WebSearch discipline, parallel-research patterns, the "facts about people/companies must come from cmux-loaded pages" rule, and shared-account etiquette.
-- **`setup` skill** (`/eladve-cmux-browser:setup`) — a one-time interactive walkthrough: checks prerequisites, walks you through logging into LinkedIn and other research sites (logins are sticky in cmux), optionally allowlists cmux commands and adds a default-rule line to your `CLAUDE.md`, and verifies parallel browser surfaces work.
+- **`cmux-browser` skill** — the operating manual: the cmux default loop, surface hygiene, fetch/WebSearch discipline, parallel-research patterns, the "facts you rely on come from cmux-loaded pages, not snippets" rule, and shared-account etiquette.
+- **`setup` skill** (`/eladve-cmux-browser:setup`) — a one-time interactive walkthrough: checks prerequisites, walks you through logging into the sites you research through (logins are sticky in cmux), optionally allowlists cmux commands and adds a default-rule line to your `CLAUDE.md`, and optionally verifies parallel browser surfaces.
 - **`canary` agent** (`eladve-cmux-browser:canary`) — a ~30-second check that parallel browser subagents work, to run before firing a large batch.
 - **A `PreToolUse` hook** — a soft nudge (keep browser tabs tidy; don't fetch/WebFetch a cmux-only domain). It never blocks. (Browsing subagents are seeded with the cmux policy via the skill, not a blanket hook.)
 
@@ -21,7 +21,7 @@ A dark Claude Code theme: black background, warm-orange user turns so your messa
 
 - **macOS** with **Claude Code** installed.
 - **[cmux](https://cmux.com)** installed (the browser plugin drives it; it does not install it). The setup skill checks for it.
-- **python3** (every recent macOS has it; the two hooks use it).
+- **python3** (every recent macOS has it; the `browser-policy.py` hook uses it).
 - *Optional:* the **claude-in-chrome** Chrome extension/MCP, used only as a last-resort backup browser.
 
 ## Install
@@ -64,7 +64,7 @@ claude plugin uninstall eladve-cmux-browser
 ```
 
 The plugin itself lives under `~/.claude/` and is fully removed. **But the one-time setup made changes to your global config that uninstalling does NOT revert** — undo them by hand if you want them gone:
-- `~/.claude/settings.json` → remove the `Bash(cmux *)` allow rule, the three `cmux …` deny rules, and `"WebFetch"` from `deny` (if you barred it).
+- `~/.claude/settings.json` → remove the `Bash(cmux *)` allow rule, the `cmux` deny rules (`close-window` / `close-workspace` / `browser open-split`), and `"WebFetch"` from `deny` (if you barred it).
 - `~/.claude/CLAUDE.md` → delete the `**Web/browser default (eladve-cmux-browser):**` line.
 
 ## Notes

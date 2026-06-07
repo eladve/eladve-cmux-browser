@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Sets up the eladve-cmux-browser plugin on first use — checks cmux + python3, guides the user through logging into LinkedIn and other research sites in the cmux browser (logins are sticky), optionally allowlists cmux commands and adds the cmux-default rule to the user's CLAUDE.md, and verifies parallel browser surfaces. Run once after installing, when the user runs /eladve-cmux-browser:setup or asks to set up cmux browsing.
+description: Sets up the eladve-cmux-browser plugin on first use — checks cmux + python3, guides the user through logging into the sites they research through in the cmux browser (logins are sticky), optionally allowlists cmux commands and adds the cmux-default rule to the user's CLAUDE.md, and optionally verifies parallel browser surfaces. Run once after installing, when the user runs /eladve-cmux-browser:setup or asks to set up cmux browsing.
 disable-model-invocation: true
 ---
 
@@ -45,27 +45,26 @@ Setup can modify two of the user's files: `~/.claude/settings.json` and `~/.clau
 
 ## Step 4 — Log in (one batched instruction)
 
-First check LinkedIn: open `https://www.linkedin.com/feed/` in cmux, `get text --selector body` (first ~400 chars), and decide logged-in vs login-wall.
+First, figure out which sites the user researches through (ask if it's not obvious from their work). If they name a primary one, open it in cmux + `get text --selector body` (first ~400 chars) to see whether they're already logged in.
 
 Then send **one** message telling the user to log in to everything now. Phrase it like:
 
-> I've opened a cmux **browser pane beside your terminal**. **Click into it and log in to each site the normal way** (enter credentials, complete any 2FA) — cmux keeps you logged in afterward (sticky profile), so you only do this once. Now's the time; please log into:
-> - **LinkedIn** — required for any people/company research. [If the check showed a login wall: "you're not logged in yet — please log in now."] [If already logged in: "✅ already logged in."]
-> - **X/Twitter, GitHub** — if you'll research there.
-> - **A throwaway Google account** — optional but recommended; logged-in Google sessions hit far fewer "verify you're human" walls during parallel searches.
-> - **Anything else** you research through (Crunchbase, etc.).
+> I've opened a cmux **browser pane beside your terminal**. **Click into it and log in to each site the normal way** (enter credentials, complete any 2FA) — cmux keeps you logged in afterward (sticky profile), so you only do this once. Now's the time; please log into **the sites you research through**, for example:
+> - **Whatever's central to your work** — e.g. LinkedIn (people/company), GitHub (code), a data provider / journal / internal dashboard / news site. [If your pre-check showed a primary site walled: "you're not logged into <site> yet — please log in now."] [If already logged in: "✅ already logged into <site>."]
+> - **A throwaway Google account** — optional but recommended; logged-in Google sessions hit far fewer "verify you're human" walls during searches.
+> - **Anything else** you'll research through.
 >
-> Tell me when you're done and I'll verify LinkedIn.
+> Tell me when you're done and I'll verify.
 
 Wait for them. Do **not** loop site-by-site.
 
 ## Step 5 — Verify
 
-- **5a (always):** re-open `https://www.linkedin.com/feed/` in cmux, `get text --selector body`, confirm it shows the feed / their name (not a login wall). Report ✅/❌. If still walled, ask them to complete login and retry once.
-- **5b (always) — show it working:** do ONE quick real lookup via cmux so they *see* the value — e.g. open their own LinkedIn and read back their current headline, or open a site they just logged into and confirm it shows them signed in. Report what you found. This confirms the pipeline end-to-end and demonstrates what they'll get day-to-day.
+- **5a (always):** re-open the primary site they logged into (whatever they named — e.g. `linkedin.com/feed/`, a GitHub page, their dashboard) in cmux, `get text --selector body`, confirm it's authenticated (shows their content/name, not a login wall). Report ✅/❌. If still walled, ask them to complete login and retry once.
+- **5b (always) — show it working:** do ONE quick real lookup via cmux so they *see* the value — e.g. open a site they just logged into and confirm it shows them signed in, or read one fact off a page in their domain (a profile, a repo, a dashboard, an article). Report what you found. This confirms the pipeline end-to-end and demonstrates what they'll get day-to-day.
 - **5c (only if they chose 5B — the advanced canary):** allocate 2 browser surfaces and fire the `eladve-cmux-browser:canary` subagent (`subagent_type: eladve-cmux-browser:canary`) on each with sums "1+1" and "2+2". If both return OK, parallel browsing works. If the agent type isn't found, tell them to restart Claude Code (custom agents load at session start) and re-run setup. **If the canary reports a CAPTCHA / "verify you're human" wall on Google, that's a Google-session issue (log into a Google account and retry), NOT a cmux failure — note it and proceed.**
 - Close any surfaces you opened for verification (`cmux close-surface`), but leave the user's login pane alone.
 
 ## Step 6 — Done
 
-Summarize: what's configured (allowlist? CLAUDE.md rule? canary result?), which sites are logged in, and how to use it from here: **"Just browse and research normally — Claude now defaults to the cmux browser. To go deeper, the `cmux-browser` skill has the full playbook. Update the plugin later with `claude plugin update eladve-cmux-browser`."** Then tell them where the global changes live so they can undo them: `~/.claude/settings.json` (allowlist / deny-rules / WebFetch bar) and `~/.claude/CLAUDE.md` (the default-rule line) — e.g. to re-enable WebFetch later, remove `"WebFetch"` from `permissions.deny`.
+Summarize: what's configured (allowlist? CLAUDE.md rule? canary result?), which sites are logged in, and how to use it from here: **"Just browse and research normally — if you appended the CLAUDE.md rule, Claude now defaults to the cmux browser for web work; otherwise it uses cmux whenever the `cmux-browser` skill triggers on a task. The `cmux-browser` skill has the full playbook. Update the plugin later with `claude plugin update eladve-cmux-browser`."** Then tell them where the global changes live so they can undo them: `~/.claude/settings.json` (allowlist / deny-rules / WebFetch bar) and `~/.claude/CLAUDE.md` (the default-rule line) — e.g. to re-enable WebFetch later, remove `"WebFetch"` from `permissions.deny`.
