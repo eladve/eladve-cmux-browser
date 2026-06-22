@@ -39,6 +39,12 @@ It checks cmux, walks you through logging into the sites you research through (c
 
 **`eladve-theme`** *(optional)* — a dark Claude Code theme: black background, warm-orange user turns so your messages pop. Adds **Cmux Dark** to `/theme`. (Themes are an experimental plugin component.)
 
+**`eladve-statusline`** *(optional, standalone — no cmux required)* — a custom status line in one quiet line: location · model/effort/output-style · git (branch, PR + review state, uncommitted count, commit staleness, unpushed — each hidden until it crosses an actionable threshold) · context % · session name · 5h/weekly usage quotas, colored green/yellow/red by threshold. Install and set up:
+```bash
+claude plugin install eladve-statusline@eladve-claude-setup
+```
+Then `/reload-plugins` and run `/eladve-statusline:setup` (needs `jq`). It copies `statusline.sh` to `~/.claude/` and adds the `statusLine` key to your `~/.claude/settings.json` (merging, never clobbering; backs up first). `/reload-plugins` again to show it.
+
 ## Updating
 
 ```bash

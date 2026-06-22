@@ -22,6 +22,15 @@
       "author": { "name": "Elad Verbin" },
       "category": "theme",
       "keywords": ["theme", "dark"]
+    },
+    {
+      "name": "eladve-statusline",
+      "source": "./plugins/eladve-statusline",
+      "description": "A custom status line — location, model/effort/output-style, git (branch, PR, uncommitted, staleness, unpushed), context %, session name, and 5h/weekly usage quotas, threshold-colored. Installs via /eladve-statusline:setup.",
+      "version": "0.1.0",
+      "author": { "name": "Elad Verbin" },
+      "category": "productivity",
+      "keywords": ["statusline", "status-line", "git", "ui"]
     }
   ]
 }
